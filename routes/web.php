@@ -42,6 +42,10 @@ Route::get('terms', [PageController::class, 'terms'])->name('terms');
 Route::get('courses', [FrontendCourseController::class, 'index'])->name('courses.index');
 Route::get('courses/{courseId}', [FrontendCourseController::class, 'show'])->name('courses.show');
 
+// Routes for server-side paypal integration
+Route::post('payment/createOrderPayPal', [PaypalController::class, 'createOrderPayPal']);
+Route::post('payment/captureOrderPayPal/{orderId}', [PaypalController::class, 'captureOrderPayPal']);
+
 // Routes for Admin group
 Route::group([
     'as'=>'admin.',

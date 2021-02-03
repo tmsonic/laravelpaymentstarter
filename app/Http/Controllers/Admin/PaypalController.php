@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use DB;
 use App\Models\PaymentGateway\PayPalSetting;
+use App\Helpers\PayPalSdkHelper;
 
 class PaypalController extends Controller
 {
@@ -47,5 +48,37 @@ class PaypalController extends Controller
         $paypalSettings->save();
 
         return redirect()->back()->with('successMsg', 'The PayPal Settings have been successfully updated!');
+    }
+
+    public static function createOrderPayPal(Request $request)
+    {
+        $settings = DB::table('settings')->first();
+        if(is_null($settings))
+        {
+            return null;
+        }
+
+        $course = DB::table('courses')->find($request->courseId);
+        if(is_null($course))
+        {
+            return null;
+        }
+
+        if($settings->currency != $request->currency)
+        {
+            return null;
+        }
+
+        if($course->price != $request->total)
+        {
+            return null;
+        }
+
+        return PayPalSdkHelper::createOrder($request->currency, $request->total);
+    }
+
+    public function captureOrderPayPal(Request $request, $orderId)
+    {
+        return PayPalSdkHelper::captureOrder($orderId);
     }
 }

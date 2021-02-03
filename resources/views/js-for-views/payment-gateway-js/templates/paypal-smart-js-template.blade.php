@@ -5,20 +5,34 @@
     var basicFormPaypal;
 
     paypal.Buttons({
-        createOrder: function(data, actions)
-        {
-            var paypalAmount = basicFormPaypal.get("total");
-            var adjustedAmount = adjustPaypalAmount(paypalAmount, chosenCurrency);
-            return actions.order.create({
-                purchase_units: [{
-                    amount: {
-                        currency_code: chosenCurrency,
-                        value: adjustedAmount
-                    }
-                }],
-                application_context: {
-                    shipping_preference: 'NO_SHIPPING'
+        createOrder: function(data, actions) {
+            basicFormPaypal.append("courseId", "{{$course->id}}");
+            return fetch("{{ url('payment/createOrderPayPal') }}", {
+                method: "POST",
+                body: basicFormPaypal
+            }).then(function(res){
+                if(!res.ok)
+                {
+                    return serverErrorPaypal;
                 }
+                else
+                {
+                    return res.json();
+                }
+            }).then(function(orderData){
+                if(orderData == serverErrorPaypal)
+                {
+                    showErrorAndScrollUp("Unknown error occured while creating the order");
+                    resetFieldsAfterPayFail();
+                    return -1;
+                }
+                if(!orderData[0]["result"]["id"])
+                {
+                    showErrorAndScrollUp("Something went wrong while creating the order");
+                    resetFieldsAfterPayFail();
+                    return -1;
+                }
+                return orderData[0]["result"]["id"];
             });
         },
 
@@ -27,10 +41,50 @@
         },
 
         onApprove: function(data, actions) {
-            return actions.order.capture().then(function(details) {
+            return fetch("{{ url('payment/captureOrderPayPal') }}" + "/" + data.orderID, {
+                method: "POST",
+                headers: {
+                    "X-CSRF-Token": "{{ csrf_token() }}",
+                },
+            }).then(function(res) {
+                if(!res.ok)
+                {
+                    return serverErrorPaypal;
+                }
+                else
+                {
+                    return res.json();
+                }
+            }).then(function(orderData) {
+                if(orderData == serverErrorPaypal)
+                {
+                    showErrorAndScrollUp("The transaction could not be processed because of a server error");
+                    resetFieldsAfterPayFail();
+                    return;
+                }
+                // Three cases to handle:
+                //   (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
+                //   (2) Other non-recoverable errors -> Show a failure message
+                //   (3) Successful transaction -> Show confirmation or thank you
+
+                // This example reads a v2/checkout/orders capture response, propagated from the server
+                // You could use a different API or structure for your 'orderData'
+                var errorDetail = Array.isArray(orderData.details) && orderData.details[0];
+
+                if (errorDetail && errorDetail.issue === 'INSTRUMENT_DECLINED') {
+                    return actions.restart(); // Recoverable state, per:
+                    // https://developer.paypal.com/docs/checkout/integration-features/funding-failure/
+                }
+
+                if (errorDetail) {
+                    showErrorAndScrollUp("The transaction could not be processed because of a non-recoverable error");
+                    resetFieldsAfterPayFail();
+                    return;
+                }
+
                 $("#processingModal").modal('show');
                 document.querySelector('#course_paypal').value = "{{$course->id}}";
-                document.querySelector('#transaction_paypal').value = details.purchase_units[0].payments.captures[0].id;
+                document.querySelector('#transaction_paypal').value = orderData[0].result.purchase_units[0].payments.captures[0].id;
                 appendPaymentData(basicFormPaypal, "_paypal");
                 var paypalForm = document.querySelector("#payment-form-paypal-smart");
                 paypalForm.submit();
