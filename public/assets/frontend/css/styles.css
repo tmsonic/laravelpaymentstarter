@@ -1,0 +1,238 @@
+body {
+    font-family: 'Nunito', sans-serif;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color:rgb(241, 241, 241);
+    font-style: italic;
+    font-size: 14px;
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color:rgb(241, 241, 241);
+    font-style: italic;
+    font-size: 14px;
+}
+  
+::-ms-input-placeholder { /* Microsoft Edge */
+    color:rgb(241, 241, 241);
+    font-style: italic;
+    font-size: 14px;
+}
+
+a {
+    text-decoration:none;
+    position: relative;
+    font-size: 1rem;
+    line-height: 1.625rem;
+    cursor:pointer;
+    color:#777;
+    transition: all 900ms ease;
+}
+
+a:hover { 
+    text-decoration:none;
+    outline:none;
+    color: #ee4235;
+    transition: all 900ms ease;
+}
+
+a:focus {
+    outline: none;
+}
+
+.form-control:focus {
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    -o-box-shadow: none !important;
+  }
+
+  :focus {
+    outline:0 !important;
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0) !important;
+  }
+
+#hero {
+    padding-top: 100px;
+    padding-bottom: 100px;
+    margin-top: -23px;
+    background-color: #ff007f!important;
+    background: -webkit-radial-gradient(top left,circle,#447de6 0%,#06d5e4 100%)!important;
+    background: radial-gradient(circle at top left,#447de6 0%,#06d5e4 100%)!important;
+}
+
+.section-title h1 {
+    color: #ffffff;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+#main-checkout {
+    padding-top: 3rem;
+    padding-bottom: 3rem; 
+}
+
+.step1 h4, .step2 h4, .step3 h4, .payment-title h4 {
+    font-weight: 600;
+}
+
+.customer-info label {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.step2 {
+    margin-top: 2rem;
+}
+
+/* Select payment method styles */
+.order-details {
+    padding: 0 10px 10px 10px;
+}
+
+.order-details .order-meta div {
+    font-size: 1.05rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.order-meta {
+    border-bottom: 1px dashed #ccc;
+    padding-bottom: 10px;
+}
+
+.product-row, .subtotal {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed #ccc;
+}
+
+.total {
+    padding-top: 10px;
+    font-weight: 600;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed #ccc;
+}
+
+.payment-btn {
+    margin-top: 16px;
+}
+
+.btn-payment {
+    background-color: #009688;
+    color: #ffffff;
+    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.btn-payment:hover {
+    background-color: #4DB6AC;
+    color: #ffffff;
+    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: 700;
+    transition: .8s;
+}
+
+#payStartBtnStripe {
+    margin-top: 20px;
+}
+
+#main-checkout .wrapper .checkout {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+#terms_privacy_div {
+	padding: 10px 15px 10px 5px;
+}
+
+#terms_checkbox {
+	margin-left: 2px;
+}
+
+#terms_privacy_div label {
+	padding-left: 20px;
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) { 
+
+    .hero-title p {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+}
+
+@media (max-width: 575.98px) { 
+
+    .hero-title p {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+}
+
+
+/* Thank you page */
+#thanks-content {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+#thanks-content .check i {
+    font-size: 70px;
+    color: #0bbb5a;
+}
+
+#thanks-content .description h3 {
+    text-align: center;
+    font-weight: 600;
+}
+
+#thanks-content .description p {
+    text-align: center;
+}
+
+/* Course styles */
+.course-container h2 a {
+    font-size: 30px;
+    font-weight: 600;
+    color: rgb(20, 20, 20);
+}
+
+.course-container h2 a:hover {
+    color: #ee4235;
+    transition: all 700ms ease;
+}
+
+@media (max-width: 991.98px) { 
+
+    .course-container .media .course-img img {
+        width: 100%;
+    }
+
+    .course-container .media {
+        display: flex;
+        flex-direction: column!important;
+    }
+
+    .media-body h2 {
+        margin-top: 15px;
+    }
+
+}
+
+.course-price p {
+    font-size: 30px;
+    color: #009688;
+    font-weight: 600;
+}
+
+/* Member dashboard */
+.section-title h2 {
+    font-weight: 600;
+}

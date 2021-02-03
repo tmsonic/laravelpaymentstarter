@@ -1,0 +1,102 @@
+.option-main-title {
+	font-size: 16px;
+	font-weight: 600;
+	margin: 0px;
+    padding: 0px;
+    text-transform: uppercase;
+}
+
+.option-description {
+	font-size: 14px;
+	line-height: 24px;
+	margin: 0px;
+	padding: 0px;
+}
+
+div.form-group.row.option-item {
+	margin-bottom: 0;
+}
+
+.option-title-hr {
+	border: 1px solid #a3a2a2;
+}
+
+.card-body-title {
+	font-size: 14px;
+	text-transform: uppercase;
+	color: #000000;
+	font-weight: 700;
+}
+
+.card-body-desc {
+	font-size: 12px;
+	color: rgb(124, 128, 129);
+}
+
+.main-footer {
+	font-size: 14px;
+}
+
+.nav-sidebar>.nav-item .nav-icon.far {
+	font-size: 1rem;
+}
+
+.test-email .test-email-container {
+    width: 40%;
+    margin: 0 auto;
+}
+
+.test-email label {
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #2b333e;
+}
+
+/* File upload styles */
+.custom-file-control {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 5;
+    height: 2.5rem;
+    padding: .5rem 1rem;
+    line-height: 1.5;
+    color: #495057;
+    pointer-events: none;
+    user-select: none;
+    background-color: #fff;
+    border: 1px solid rgba(0,0,0,0.15);
+    border-radius: 3px;
+}
+
+.custom-file-control-primary::before {
+    background-color: #0866C6 !important;
+    color: #fff !important;
+    font-weight: 400;
+}
+
+.custom-file-control:lang(en)::before {
+    content: "Browse";
+}
+
+.custom-file-control::before {
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    bottom: -1px;
+    z-index: 6;
+    display: block;
+    height: 2.5rem;
+    padding: .5rem 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #e9ecef;
+    border: 1px solid rgba(0,0,0,0.15);
+    border-radius: 0 3px 3px 0;
+}
+
+.custom-file-control:lang(en):empty::after {
+    content: "Choose file ...";
+    font-weight: 400;
+}
