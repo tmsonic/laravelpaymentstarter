@@ -77,6 +77,11 @@ class BraintreeController extends Controller
             return redirect()->back()->withInput()->with('failureMsg', 'The course has not been found!');
         }
 
+        if($course->price != $request->total)
+        {
+            return redirect()->back()->withInput()->with('failureMsg', 'Price disrepancy!');
+        }
+
         if( $braintreeSettings->braintree_environment == 'sandbox' )
         {
             $gateway = new Braintree\Gateway([
