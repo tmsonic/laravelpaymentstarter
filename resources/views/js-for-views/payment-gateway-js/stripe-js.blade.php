@@ -80,6 +80,7 @@
             body: JSON.stringify({
                 amount: basicFormStripe.get("total"),
                 currency: chosenCurrency,
+                courseId: "{{$course->id}}",
             }),
         }).then(function(res) {
             if(!res.ok)

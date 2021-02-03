@@ -60,6 +60,28 @@ class StripeController extends Controller
             return null;
         }
 
+        $settings = DB::table('settings')->first();
+        if(is_null($settings))
+        {
+            return null;
+        }
+
+        $course = DB::table('courses')->find($request->courseId);
+        if(is_null($course))
+        {
+            return null;
+        }
+
+        if($settings->currency != $request->currency)
+        {
+            return null;
+        }
+
+        if($course->price != $request->amount)
+        {
+            return null;
+        }
+
         if($stripeSettings->stripe_environment == "test")
         {
             Stripe::setApiKey($stripeSettings->stripe_test_secret_key);
