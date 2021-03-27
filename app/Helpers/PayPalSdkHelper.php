@@ -4,7 +4,7 @@ namespace App\Helpers;
 
 use PayPalCheckoutSdk\Core\PayPalHttpClient;
 use PayPalCheckoutSdk\Core\SandboxEnvironment;
-use PayPalCheckoutSdk\Core\LiveEnvironment;
+use PayPalCheckoutSdk\Core\ProductionEnvironment;
 use PayPalCheckoutSdk\Orders\OrdersCreateRequest;
 use PayPalCheckoutSdk\Orders\OrdersCaptureRequest;
 use DB;
@@ -36,7 +36,7 @@ class PayPalSdkHelper
         {
             $clientId = $payPalSettings->paypal_smart_production_client;
             $clientSecret = $payPalSettings->paypal_smart_production_secret;
-            return new LiveEnvironment($clientId, $clientSecret);
+            return new ProductionEnvironment($clientId, $clientSecret);
         }
     }
 
